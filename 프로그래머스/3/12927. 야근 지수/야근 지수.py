@@ -18,7 +18,6 @@
 #         n -= 1
 #     return tired_score(sorted_work)
 
-
 import heapq
 
 def tired_score(lst):
