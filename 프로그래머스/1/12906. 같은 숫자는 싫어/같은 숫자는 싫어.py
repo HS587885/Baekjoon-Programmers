@@ -5,6 +5,4 @@ def solution(arr):
             answer.append(arr[i])
         if arr[i-1] != arr[i]:
             answer.append(arr[i])
-            
-
     return answer
