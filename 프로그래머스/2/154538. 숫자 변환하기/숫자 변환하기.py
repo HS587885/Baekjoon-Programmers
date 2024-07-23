@@ -19,4 +19,4 @@ def solution(x, y, n):
                 visited.add(operation)
                 queue.append((operation, count + 1))
 
-    return -1  
+    return -1 
