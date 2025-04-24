@@ -42,9 +42,3 @@ for _ in range(T):
         maps[i[1]][i[0]] = 1
 
     print(solution(maps, m, n))
-                
-                
-        
-        
-
-    
