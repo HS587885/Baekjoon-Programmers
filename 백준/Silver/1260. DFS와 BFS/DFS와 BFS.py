@@ -1,34 +1,46 @@
-def dfs(graph, v, visited):
-    visited[v] = True
-    print(v, end=" ")
-    for neighbor in graph[v]:
-        if not visited[neighbor]:
-            dfs(graph, neighbor, visited)
+from collections import deque
+import sys
 
-def bfs(graph, v, visited):
-    q = [v]
-    visited[v] = True
-    while q:
-        current = q.pop(0)
-        print(current, end=" ")
-        for neighbor in graph[current]:
-            if not visited[neighbor]:
-                q.append(neighbor)
-                visited[neighbor] = True
 
-n, m, v = map(int, input().split())
-graph = [[] for _ in range(n + 1)]
+
+input = sys.stdin.readline
+
+n,m,v = map(int, input().split())
+
+graph = {i: [] for i in range(1,n+1)}
+
 for _ in range(m):
-    a, b = map(int, input().split())
+    a,b = map(int, input().split())
     graph[a].append(b)
     graph[b].append(a)
 
-# 정점의 이웃을 번호 순으로 정렬
-for i in range(1, n + 1):
-    graph[i].sort()
+visited = [False] * (n + 1)
 
-visited = [False] * (n + 1)
-dfs(graph, v, visited)
+
+def bfs(start):
+    q = deque([start])
+    visited[start] = True
+    order = []  
+    while q:
+        node = q.popleft()
+        order.append(node)
+        for i in sorted(graph[node]):  
+            if not visited[i]:
+                visited[i] = True
+                q.append(i)
+    return order
+
+         
+
+visited_dfs = [False] * (n + 1)
+def dfs(node):
+    visited_dfs[node] = True
+    print(node, end=" ")
+    for nxt in sorted(graph[node]):
+        if not visited_dfs[nxt]:
+            dfs(nxt)          
+    
+
+dfs(v)
 print()
-visited = [False] * (n + 1)
-bfs(graph, v, visited)
+print(*bfs(v))
