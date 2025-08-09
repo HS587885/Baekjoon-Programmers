@@ -1,18 +1,29 @@
-v = int(input())
-e = int(input())
-graph = [[] for _ in range(v+1)]
-for _ in range(e):
-    a, b = map(int, input().split())
+from collections import deque
+import sys
+
+input = sys.stdin.readline
+n = int(input())
+m = int(input())
+
+graph = {i:[] for i in range(1, n+ 1)}
+for _ in range(m):
+    a,b = map(int, input().split())
     graph[a].append(b)
     graph[b].append(a)
+    
+visited = [False] * (n + 1)
 
+def bfs(start):
+    q = deque([start])
+    visited[start] = True
+    cnt = 0
+    while q:
+        node = q.popleft()
+        for i in graph[node]:
+            if not visited[i]:
+                visited[i] = True
+                q.append(i)
+                cnt += 1
+    return cnt
 
-def dfs(x, count):
-    visited[x] = True
-    for node in graph[x]:
-        if not visited[node]:
-            count = dfs(node, count+1)
-    return count
-
-visited = [False for _ in range(v+1)]
-print(dfs(1, 0))
+print(bfs(1))
